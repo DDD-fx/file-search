@@ -10,11 +10,7 @@ type AOA = any[][];
 export class FileProcessingService {
   public data: any[] = [];
 
-  public isFileReady$ = new BehaviorSubject<boolean>(false);
-
-  public notFound = false;
-
-  public isSearchComplete = false;
+  public isNewFileUploaded$ = new BehaviorSubject<boolean>(false);
 
   processFile(files: ArrayBuffer) {
     const workBook: XLSX.WorkBook = XLSX.read(files, { type: 'binary' });
@@ -24,10 +20,10 @@ export class FileProcessingService {
     const AOAData = <AOA>XLSX.utils.sheet_to_json(firstSheetData, { header: 1 });
     this.data = AOAData.flat();
 
-    this.changeFileReadyState(true);
+    this.changeIsNewFileUploaded(true);
   }
 
-  changeFileReadyState(value: boolean) {
-    this.isFileReady$.next(value);
+  changeIsNewFileUploaded(value: boolean) {
+    this.isNewFileUploaded$.next(value);
   }
 }

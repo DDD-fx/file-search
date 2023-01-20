@@ -13,25 +13,28 @@ import { FileProcessingService } from '../services/file-processing.service';
   imports: [DndDirective, NgIf, SearchComponent, AsyncPipe],
 })
 export class UploadComponent {
-  public isFileReady$ = this.fileProcessingService.isFileReady$;
+  public isNewFileUploaded$ = this.fileProcessingService.isNewFileUploaded$;
 
   constructor(private readonly fileProcessingService: FileProcessingService) {}
 
-  onFileDropped($event: FileList) {
-    this.fileProcessingService.changeFileReadyState(true);
-    console.log($event);
-    // this.prepareFilesList($event);
+  onFileDrop($event: FileList) {
+    this.processFile($event);
   }
 
   onFileChange($event: Event) {
     const target = $event.target as HTMLInputElement;
-    if (target.files?.length !== 1) throw new Error('Можно загрузить только 1 файл');
+    this.processFile(target.files!);
+  }
+
+  processFile(fileList: FileList) {
+    this.fileProcessingService.changeIsNewFileUploaded(false);
+    if (fileList.length > 1) throw new Error('Можно загрузить только 1 файл');
 
     const reader: FileReader = new FileReader();
     reader.onload = (e: ProgressEvent<FileReader>) => {
       const arrayBuffer = e.target!.result as ArrayBuffer;
       this.fileProcessingService.processFile(arrayBuffer);
     };
-    reader.readAsArrayBuffer(target.files[0]);
+    reader.readAsArrayBuffer(fileList[0]);
   }
 }

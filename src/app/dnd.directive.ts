@@ -26,8 +26,6 @@ export class DndDirective {
     evt.stopPropagation();
     this.dragOver = false;
     const files = evt.dataTransfer!.files;
-
-    if (files.length > 1) throw new Error('Можно загрузить только 1 файл');
     this.fileDropped.emit(files);
   }
 }

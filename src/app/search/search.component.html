@@ -1,9 +1,26 @@
 <mat-form-field class="search-form">
   <mat-label>Поиск</mat-label>
   <input matInput type="text" placeholder="Введите более 2-х символов"
-         [formControl]="searchFieldControl"
-         [disabled]="(isFileReady$ | async) === false">
+         [formControl]="searchFieldControl">
   <button matSuffix mat-icon-button aria-label="Clear" (click)="searchFieldControl.setValue('')">
     <mat-icon>close</mat-icon>
   </button>
+  <mat-error *ngIf="searchFieldControl.invalid && searchFieldControl.value">
+    Введите более 2-х символов
+  </mat-error>
 </mat-form-field>
+
+<ng-container *ngIf="isSearchComplete && searchFieldControl.valid">
+  <ng-container *ngIf="resultFound else notFound">
+    <div class="search-results">Номер найден</div>
+  </ng-container>
+
+  <ng-template #notFound>
+    <div class="search-results">Номер не найден</div>
+  </ng-template>
+</ng-container>
+
+<ng-container *ngIf="!isSearchComplete && searchFieldControl.value && searchFieldControl.valid">
+  <div class="search-results">Поиск...</div>
+</ng-container>
+
