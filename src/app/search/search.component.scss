@@ -1,0 +1,12 @@
+@import "../../styles/mixins";
+
+:host {
+  width: 100%;
+  @include flex-center();
+}
+
+.search-form {
+  width: calc(100% - 20px);
+  max-width: 400px;
+  padding: 30px 10px 10px;
+}

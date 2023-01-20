@@ -1,0 +1,55 @@
+@import "../../styles/mixins";
+
+:host {
+  width: 100%;
+  height: 100%;
+  @include flex-center();
+}
+
+.container {
+  width: 70%;
+  height: 70%;
+  @include flex-center();
+  flex-direction: column;
+  border: 3px dashed dimgrey;
+
+  @media (max-width: 600px) {
+    width: 90%;
+    height: 90%;
+  }
+}
+
+.input {
+  display: none;
+}
+
+.label {
+  color: white;
+  font-size: 16px;
+  border-radius: 20px;
+  background-color: #db202f;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.dragover {
+  position: relative;
+}
+
+.dragover::before {
+  @include flex-center();
+  content: 'бросайте';
+  color: white;
+  font-size: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1a1a1a;
+  opacity: 80%;
+}
+
+.file-ready {
+  margin-top: 20px;
+}

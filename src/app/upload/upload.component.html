@@ -1,0 +1,14 @@
+<div class="container" appDnD (fileDropped)="onFileDropped($event)">
+  <input class="input" type="file" #fileDropRef id="fileDropRef" (change)="onFileChange($event)" />
+
+
+  <h3>Перетащите файл</h3>
+  <h3>или</h3>
+  <label class="label" for="fileDropRef">Выберите на диске</label>
+
+  <div class="file-ready" *ngIf="isFileReady$! | async">
+    <span>✅ Файл загружен</span>
+  </div>
+
+  <app-search></app-search>
+</div>

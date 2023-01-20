@@ -1,0 +1,9 @@
+<mat-form-field class="search-form">
+  <mat-label>Поиск</mat-label>
+  <input matInput type="text" placeholder="Введите более 2-х символов"
+         [formControl]="searchFieldControl"
+         [disabled]="(isFileReady$ | async) === false">
+  <button matSuffix mat-icon-button aria-label="Clear" (click)="searchFieldControl.setValue('')">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
